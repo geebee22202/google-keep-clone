@@ -1,13 +1,28 @@
 class App {
   constructor() {
+    this.notes = [];
+
     this.$form = document.querySelector("#form");
     this.$noteTitle = document.querySelector("#note-title");
+    this.$noteText = document.querySelector("#note-text");
     this.$formButtons = document.querySelector("#form-buttons");
     this.addEventListeners();
   }
   addEventListeners() {
     document.body.addEventListener("click", (event) => {
       this.handleFormClick(event);
+    });
+
+    this.$form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = this.$noteTitle.value;
+      const text = this.$noteText.value;
+
+      const hasNote = title || text;
+
+      if (hasNote) {
+        this.addNote({ title: title, text: title });
+      }
     });
   }
 
@@ -31,6 +46,17 @@ class App {
     this.$form.classList.remove("form-open");
     this.$noteTitle.style.display = "none";
     this.$formButtons.style.display = "none";
+  }
+
+  addNote(noteData) {
+    const newNote = {
+      title: noteData.title,
+      text: noteData.text,
+      color: "white",
+      id: this.notes.length > 0 ? this.notes[this.notes.length - 1].id + 1 : 1,
+    };
+    this.notes = [...this.notes, newNote];
+    console.log(this.notes);
   }
 }
 
