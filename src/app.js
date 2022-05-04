@@ -123,10 +123,10 @@ class App {
   //getBoundingClientRect let's us know exactly where the user is hovering on note
   openTooltip(event) {
     if (!event.target.matches(".toolbar-color")) return;
-    this.id = event.target.dataset.id;
+    this.id = event.target.nextElementSibling.dataset.id;
     const noteCoords = event.target.getBoundingClientRect();
-    const horizontal = noteCoords.left + window.scrollX;
-    const vertical = noteCoords.top + window.scrollY - 280;
+    const horizontal = noteCoords.left;
+    const vertical = window.scrollY - 20;
     this.$colorTooltip.style.transform = `translate(${horizontal}px, ${vertical}px)`;
     this.$colorTooltip.style.display = "flex";
   }
@@ -202,12 +202,12 @@ class App {
         <div class="note-text">${note.text}</div>
         <div class="toolbar-container">
           <div class="toolbar">
-            <img class="toolbar-color" data-id=${
+            <i class="fa fa-solid fa-palette toolbar-color" data-id=${
               note.id
-            } src="https://www.vhv.rs/dpng/d/461-4610856_brush-icon-png-paint-palette-clipart-black-and.png" />
-            <img class="toolbar-delete" data-id=${
+            }></i>
+            <i class="fa fa-solid fa-trash toolbar-delete" data-id=${
               note.id
-            } src="https://www.pngfind.com/pngs/m/47-471196_icon-trash-png-font-awesome-trash-o-transparent.png" />
+            }></i>
           </div>
         </div>
       </div>
